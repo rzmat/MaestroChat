@@ -11,8 +11,12 @@ export async function POST(request: Request) {
     console.log("Tools:", tools);
 
     console.log("Received messages:", messages);
+    console.log("OPENAI_API_KEY exists:", !!process.env.OPENAI_API_KEY);
+    console.log("OPENAI_API_KEY length:", process.env.OPENAI_API_KEY?.length || 0);
 
-    const openai = new OpenAI();
+    const openai = new OpenAI({
+      apiKey: process.env.OPENAI_API_KEY,
+    });
 
     const events = await openai.responses.create({
       model: MODEL,
